@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.edureka.userms.model.User;
 import com.edureka.userms.repository.UserRepository;
@@ -15,14 +16,20 @@ import com.edureka.userms.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
+	private RestTemplate restTemplate;
+
+	public UserServiceImpl(RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
+
 	@Override
 	public List<User> getAllUsers() {
 		LOGGER.info("Getting all the User names from Repository");
-		return userRepository.findAll(); 
+		return userRepository.findAll();
 	}
 
 	@Override
@@ -33,17 +40,23 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void createUser(User user) {
-
+		/**
+		 * to be implemented
+		 */
 	}
 
 	@Override
 	public void updateUser(User user) {
-
+		/**
+		 * to be implemented
+		 */
 	}
 
 	@Override
 	public void deleteUser(Long userid) {
-
+		/**
+		 * to be implemented
+		 */
 	}
 
 	@Override
@@ -54,6 +67,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Optional<User> findByName(String userName) {
 		return null;
+	}
+
+	@Override
+	public Object getAllOrder() {
+		return restTemplate.getForObject("http://order-ms/orders", Object.class);
 	}
 
 }

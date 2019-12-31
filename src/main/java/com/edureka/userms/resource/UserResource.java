@@ -39,4 +39,13 @@ public class UserResource {
 		else
 			return ResponseEntity.notFound().build();
 	}
+	/*
+	 * External API calling using rest template
+	 * Calling API of Order-MS from API of USER-MS
+	 */
+	@GetMapping(value="/getOrdersFromOrderms")
+	public ResponseEntity getOrdersFromOrderms() {
+		return ResponseEntity.ok(userService.getAllOrder()) ;
+	}
+	
 }

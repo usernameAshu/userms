@@ -16,5 +16,7 @@ public interface UserService {
 	
 	Optional<User> findById(Long id);
 	Optional<User> findByName(String userName);
+	
+	Object getAllOrder();
 
 }
