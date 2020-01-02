@@ -15,6 +15,8 @@ import com.edureka.userms.repository.UserRepository;
 @Service
 public class UserServiceImpl implements UserService {
 
+	private static final String HTTP_ORDER_MS_ORDERS = "http://order-ms/orders";
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
@@ -71,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Object getAllOrder() {
-		return restTemplate.getForObject("http://order-ms/orders", Object.class);
+		return restTemplate.getForObject(HTTP_ORDER_MS_ORDERS, Object.class);
 	}
 
 }
