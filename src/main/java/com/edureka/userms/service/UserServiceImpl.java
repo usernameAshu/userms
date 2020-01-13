@@ -1,5 +1,6 @@
 package com.edureka.userms.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.edureka.userms.model.User;
 import com.edureka.userms.repository.UserRepository;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -72,8 +74,20 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@HystrixCommand(fallbackMethod = "getResponseFromFallback")
 	public Object getAllOrder() {
 		return restTemplate.getForObject(HTTP_ORDER_MS_ORDERS, Object.class);
+	}
+	
+	private Object getResponseFromFallback() {
+		User user1 = new User();
+		user1.setId(99);
+		user1.setName("Fallback User");
+		
+		User user2 = new User();
+		user2.setId(100);
+		user2.setName("Perform Necessary actions for Circuit breaker");
+		return Arrays.asList(user1,user2);
 	}
 
 }
